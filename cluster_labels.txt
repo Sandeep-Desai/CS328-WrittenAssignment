@@ -1,0 +1,10 @@
+Cluster 0: Keeping Your Distance: Solving Sparse Reward Tasks Using Self-Balancing Shaped Rewards
+Cluster 1: Multiple Paired Forward-Inverse Models for Human Motor Learning and Control
+Cluster 2: On Bootstrapping the ROC Curve
+Cluster 3: Learning and using language via recursive pragmatic reasoning about other agents
+Cluster 4: Tangent: Automatic differentiation using source-code transformation for dynamically typed array programming
+Cluster 5: Efficient Learning of Sparse Representations with an Energy-Based Model
+Cluster 6: Nonnegative dictionary learning in the exponential noise model for adaptive music signal representation
+Cluster 7: Computation of Similarity Measures for Sequential Data using Generalized Suffix Trees
+Cluster 8: An Efficient Clustering Algorithm Using Stochastic Association Model and Its Implementation Using Nanostructures
+Cluster 9: Solid Harmonic Wavelet Scattering: Predicting Quantum Molecular Energy from Invariant Descriptors of 3D  Electronic Densities
