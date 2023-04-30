@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 600px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "Sergey Levine", "label": "Sergey Levine", "shape": "dot", "size": 102}, {"color": "#97c2fc", "id": "Yoshua Bengio", "label": "Yoshua Bengio", "shape": "dot", "size": 89}, {"color": "#97c2fc", "id": "Michael Jordan", "label": "Michael Jordan", "shape": "dot", "size": 88}, {"color": "#97c2fc", "id": "Pieter Abbeel", "label": "Pieter Abbeel", "shape": "dot", "size": 76}, {"color": "#97c2fc", "id": "Lawrence Carin", "label": "Lawrence Carin", "shape": "dot", "size": 76}, {"color": "#97c2fc", "id": "Masashi Sugiyama", "label": "Masashi Sugiyama", "shape": "dot", "size": 63}, {"color": "#97c2fc", "id": "Francis Bach", "label": "Francis Bach", "shape": "dot", "size": 63}, {"color": "#97c2fc", "id": "Le Song", "label": "Le Song", "shape": "dot", "size": 61}, {"color": "#97c2fc", "id": "Pradeep Ravikumar", "label": "Pradeep Ravikumar", "shape": "dot", "size": 60}, {"color": "#97c2fc", "id": "Remi Munos", "label": "Remi Munos", "shape": "dot", "size": 58}, {"color": "#97c2fc", "id": "Andreas Krause", "label": "Andreas Krause", "shape": "dot", "size": 58}, {"color": "#97c2fc", "id": "Russ Salakhutdinov", "label": "Russ Salakhutdinov", "shape": "dot", "size": 57}, {"color": "#97c2fc", "id": "Jun Zhu", "label": "Jun Zhu", "shape": "dot", "size": 57}, {"color": "#97c2fc", "id": "Stefano Ermon", "label": "Stefano Ermon", "shape": "dot", "size": 57}, {"color": "#97c2fc", "id": "Yee Whye Teh", "label": "Yee Whye Teh", "shape": "dot", "size": 56}, {"color": "#97c2fc", "id": "Bernhard Sch\u00f6lkopf", "label": "Bernhard Sch\u00f6lkopf", "shape": "dot", "size": 56}, {"color": "#97c2fc", "id": "Tong Zhang", "label": "Tong Zhang", "shape": "dot", "size": 56}, {"color": "#97c2fc", "id": "Eric Xing", "label": "Eric Xing", "shape": "dot", "size": 56}, {"color": "#97c2fc", "id": "Josh Tenenbaum", "label": "Josh Tenenbaum", "shape": "dot", "size": 52}, {"color": "#97c2fc", "id": "Max Welling", "label": "Max Welling", "shape": "dot", "size": 50}, {"color": "#97c2fc", "id": "Csaba Szepesvari", "label": "Csaba Szepesvari", "shape": "dot", "size": 49}, {"color": "#97c2fc", "id": "Tie-Yan Liu", "label": "Tie-Yan Liu", "shape": "dot", "size": 49}, {"color": "#97c2fc", "id": "Inderjit Dhillon", "label": "Inderjit Dhillon", "shape": "dot", "size": 47}, {"color": "#97c2fc", "id": "Prateek Jain", "label": "Prateek Jain", "shape": "dot", "size": 47}, {"color": "#97c2fc", "id": "Nati Srebro", "label": "Nati Srebro", "shape": "dot", "size": 47}, {"color": "#97c2fc", "id": "Cho-Jui Hsieh", "label": "Cho-Jui Hsieh", "shape": "dot", "size": 47}, {"color": "#97c2fc", "id": "Mehryar Mohri", "label": "Mehryar Mohri", "shape": "dot", "size": 44}, {"color": "#97c2fc", "id": "Richard Zemel", "label": "Richard Zemel", "shape": "dot", "size": 44}, {"color": "#97c2fc", "id": "Honglak Lee", "label": "Honglak Lee", "shape": "dot", "size": 43}, {"color": "#97c2fc", "id": "Dale Schuurmans", "label": "Dale Schuurmans", "shape": "dot", "size": 43}, {"color": "#97c2fc", "id": "Qiang Liu", "label": "Qiang Liu", "shape": "dot", "size": 42}, {"color": "#97c2fc", "id": "Zhaoran Wang", "label": "Zhaoran Wang", "shape": "dot", "size": 42}, {"color": "#97c2fc", "id": "David Blei", "label": "David Blei", "shape": "dot", "size": 41}, {"color": "#97c2fc", "id": "Percy Liang", "label": "Percy Liang", "shape": "dot", "size": 41}, {"color": "#97c2fc", "id": "Pushmeet Kohli", "label": "Pushmeet Kohli", "shape": "dot", "size": 41}, {"color": "#97c2fc", "id": "Han Liu", "label": "Han Liu", "shape": "dot", "size": 40}, {"color": "#97c2fc", "id": "Volkan Cevher", "label": "Volkan Cevher", "shape": "dot", "size": 40}, {"color": "#97c2fc", "id": "Mihaela van der Schaar", "label": "Mihaela van der Schaar", "shape": "dot", "size": 40}, {"color": "#97c2fc", "id": "Shie Mannor", "label": "Shie Mannor", "shape": "dot", "size": 39}, {"color": "#97c2fc", "id": "Tommi Jaakkola", "label": "Tommi Jaakkola", "shape": "dot", "size": 38}, {"color": "#97c2fc", "id": "Zoubin Ghahramani", "label": "Zoubin Ghahramani", "shape": "dot", "size": 38}, {"color": "#97c2fc", "id": "Quanquan Gu", "label": "Quanquan Gu", "shape": "dot", "size": 37}, {"color": "#97c2fc", "id": "Ping Li", "label": "Ping Li", "shape": "dot", "size": 36}, {"color": "#97c2fc", "id": "Arthur Gretton", "label": "Arthur Gretton", "shape": "dot", "size": 36}, {"color": "#97c2fc", "id": "Jinwoo Shin", "label": "Jinwoo Shin", "shape": "dot", "size": 36}, {"color": "#97c2fc", "id": "Stefanie Jegelka", "label": "Stefanie Jegelka", "shape": "dot", "size": 35}, {"color": "#97c2fc", "id": "Nicolas Heess", "label": "Nicolas Heess", "shape": "dot", "size": 35}, {"color": "#97c2fc", "id": "Aaron Courville", "label": "Aaron Courville", "shape": "dot", "size": 34}, {"color": "#97c2fc", "id": "Tao Qin", "label": "Tao Qin", "shape": "dot", "size": 34}, {"color": "#97c2fc", "id": "Oriol Vinyals", "label": "Oriol Vinyals", "shape": "dot", "size": 34}, {"color": "#97c2fc", "id": "Simon Du", "label": "Simon Du", "shape": "dot", "size": 34}, {"color": "#97c2fc", "id": "Peter Bartlett", "label": "Peter Bartlett", "shape": "dot", "size": 33}, {"color": "#97c2fc", "id": "Alex Smola", "label": "Alex Smola", "shape": "dot", "size": 33}, {"color": "#97c2fc", "id": "Elad Hazan", "label": "Elad Hazan", "shape": "dot", "size": 33}, {"color": "#97c2fc", "id": "Sanjiv Kumar", "label": "Sanjiv Kumar", "shape": "dot", "size": 33}, {"color": "#97c2fc", "id": "Alessandro Lazaric", "label": "Alessandro Lazaric", "shape": "dot", "size": 32}, {"color": "#97c2fc", "id": "Sung Ju Hwang", "label": "Sung Ju Hwang", "shape": "dot", "size": 32}, {"color": "#97c2fc", "id": "Suvrit Sra", "label": "Suvrit Sra", "shape": "dot", "size": 32}, {"color": "#97c2fc", "id": "Tianbao Yang", "label": "Tianbao Yang", "shape": "dot", "size": 32}, {"color": "#97c2fc", "id": "Bo Dai", "label": "Bo Dai", "shape": "dot", "size": 32}, {"color": "#97c2fc", "id": "Shimon Whiteson", "label": "Shimon Whiteson", "shape": "dot", "size": 32}, {"color": "#97c2fc", "id": "Chelsea Finn", "label": "Chelsea Finn", "shape": "dot", "size": 32}, {"color": "#97c2fc", "id": "Massimiliano Pontil", "label": "Massimiliano Pontil", "shape": "dot", "size": 31}, {"color": "#97c2fc", "id": "John Duchi", "label": "John Duchi", "shape": "dot", "size": 31}, {"color": "#97c2fc", "id": "Matthias Hein", "label": "Matthias Hein", "shape": "dot", "size": 31}, {"color": "#97c2fc", "id": "Zhi-Hua Zhou", "label": "Zhi-Hua Zhou", "shape": "dot", "size": 31}, {"color": "#97c2fc", "id": "John Langford", "label": "John Langford", "shape": "dot", "size": 31}, {"color": "#97c2fc", "id": "Mohammad Norouzi", "label": "Mohammad Norouzi", "shape": "dot", "size": 31}, {"color": "#97c2fc", "id": "Zhuoran Yang", "label": "Zhuoran Yang", "shape": "dot", "size": 31}, {"color": "#97c2fc", "id": "Ambuj Tewari", "label": "Ambuj Tewari", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Alekh Agarwal", "label": "Alekh Agarwal", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Sewoong Oh", "label": "Sewoong Oh", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Mingyuan Zhou", "label": "Mingyuan Zhou", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Raquel Urtasun", "label": "Raquel Urtasun", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Akshay Krishnamurthy", "label": "Akshay Krishnamurthy", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "David Woodruff", "label": "David Woodruff", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Zhangyang Wang", "label": "Zhangyang Wang", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Michal Valko", "label": "Michal Valko", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Alex Dimakis", "label": "Alex Dimakis", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "Jason Lee", "label": "Jason Lee", "shape": "dot", "size": 30}, {"color": "#97c2fc", "id": "David Silver", "label": "David Silver", "shape": "dot", "size": 29}, {"color": "#97c2fc", "id": "Gang Niu", "label": "Gang Niu", "shape": "dot", "size": 29}, {"color": "#97c2fc", "id": "Rong Jin", "label": "Rong Jin", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Mohammad Ghavamzadeh", "label": "Mohammad Ghavamzadeh", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Antonio Torralba", "label": "Antonio Torralba", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Jure Leskovec", "label": "Jure Leskovec", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Anima Anandkumar", "label": "Anima Anandkumar", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Amin Karbasi", "label": "Amin Karbasi", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Roger Grosse", "label": "Roger Grosse", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Tengyu Ma", "label": "Tengyu Ma", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Caiming Xiong", "label": "Caiming Xiong", "shape": "dot", "size": 28}, {"color": "#97c2fc", "id": "Geoffrey E Hinton", "label": "Geoffrey E Hinton", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Ohad Shamir", "label": "Ohad Shamir", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Quoc V Le", "label": "Quoc V Le", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Matthias Bethge", "label": "Matthias Bethge", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Doina Precup", "label": "Doina Precup", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Jascha Sohl-Dickstein", "label": "Jascha Sohl-Dickstein", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Alex Schwing", "label": "Alex Schwing", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Eunho Yang", "label": "Eunho Yang", "shape": "dot", "size": 27}, {"color": "#97c2fc", "id": "Razvan Pascanu", "label": "Razvan Pascanu", "shape": "dot", "size": 27}]);
+                  edges = new vis.DataSet([]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
